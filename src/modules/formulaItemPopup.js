@@ -14,7 +14,6 @@ const formulaItemPopup = () => {
 
       if (target.children[0].getBoundingClientRect().top <= 0) {
         target.children[0].style.transform = `translate3d(0, ${heightPopup}px, 0)`;
-        console.dir(target.children[0]);
       }
 
     });

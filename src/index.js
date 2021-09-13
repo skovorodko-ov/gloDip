@@ -7,6 +7,7 @@ import maskPhone from './modules/maskPhone';
 import popupPrivacy from './modules/popupPrivacy';
 import formulaItemPopup from './modules/formulaItemPopup';
 import accordionQuations from './modules/accordionQuations';
+import repairTypes from './modules/repairTypes';
 
 
 headerInterective();
@@ -16,3 +17,4 @@ maskPhone();
 popupPrivacy();
 formulaItemPopup();
 accordionQuations();
+repairTypes();

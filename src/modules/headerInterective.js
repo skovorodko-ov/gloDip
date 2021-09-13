@@ -8,6 +8,8 @@ const headerInterective = () => {
         popupDialogMenu = document.querySelector('.popup-dialog-menu'),
         closeMenu = document.querySelector('.close-menu');
 
+    popupDialogMenu.style.display = 'none';
+
     header.addEventListener('click', (event)=> {
         let target = event.target;
 
@@ -24,11 +26,13 @@ const headerInterective = () => {
         }
 
         if (target.classList.contains('menu__icon')) {
+            popupDialogMenu.style.display = 'block';
             popupDialogMenu.style.transform = `translate3d(0, 0, 0)`;
         }
     });
     closeMenu.addEventListener('click', () => {
         popupDialogMenu.removeAttribute('style');
+        popupDialogMenu.style.display = 'none';
     });
 };
 
