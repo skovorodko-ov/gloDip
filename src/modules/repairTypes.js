@@ -7,17 +7,42 @@ const repairTypes = () => {
     arrowRight = document.getElementById('repair-types-arrow_right'),
     arrowLeft = document.getElementById('repair-types-arrow_left'),
     sliderCounterContentCurrent = repairTypes.querySelector('.slider-counter-content__current'),
-    sliderCounterContentTotal = repairTypes.querySelector('.slider-counter-content__total');
+    sliderCounterContentTotal = repairTypes.querySelector('.slider-counter-content__total'),
+    navListRepair = repairTypes.querySelector('.nav-list'),
+    navArrowRepairRightBase = document.getElementById('nav-arrow-repair-right_base'),
+    navArrowRepairLeftBase = document.getElementById('nav-arrow-repair-left_base');
+
+    console.dir(navListRepair);
 
   let count = 0,
   whatSlider = 0,
   slider = repairTypesSlider.children[0];
+  const step = navListRepair.offsetWidth / 4;
+  let offsetLeft = 0;
 
   sliderCounterContentTotal.textContent = slider.children.length;
 
   repairTypes.addEventListener('click', (event) => {
 
     let target = event.target;
+
+    
+    if (target === navArrowRepairRightBase || target.parentNode === navArrowRepairRightBase ||
+      target.parentNode.parentNode === navArrowRepairRightBase) {
+        offsetLeft += step;
+        if (offsetLeft > 720) {
+          offsetLeft = 0;
+        }
+        navListRepair.style.transform = `translateX(-${offsetLeft}px)`;
+    }
+    if (target === navArrowRepairLeftBase || target.parentNode === navArrowRepairLeftBase ||
+      target.parentNode.parentNode === navArrowRepairLeftBase) {
+        offsetLeft -= step;
+        if (offsetLeft < 0) {
+          offsetLeft = 720;
+        }
+        navListRepair.style.transform = `translateX(-${offsetLeft}px)`;
+    }
 
     if (target.tagName === 'BUTTON') {
       count = 0;
@@ -60,6 +85,8 @@ const repairTypes = () => {
         slider.children[i].style.display = 'none';
       }
     }
+
+
   });
 };
 
