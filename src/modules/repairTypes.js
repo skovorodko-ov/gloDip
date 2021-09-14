@@ -12,8 +12,6 @@ const repairTypes = () => {
     navArrowRepairRightBase = document.getElementById('nav-arrow-repair-right_base'),
     navArrowRepairLeftBase = document.getElementById('nav-arrow-repair-left_base');
 
-    console.dir(navListRepair);
-
   let count = 0,
   whatSlider = 0,
   slider = repairTypesSlider.children[0];

@@ -9,6 +9,8 @@ import formulaItemPopup from './modules/formulaItemPopup';
 import accordionQuations from './modules/accordionQuations';
 import repairTypes from './modules/repairTypes';
 import slider from './modules/slider';
+import documents from './modules/documents';
+import popupDocuments from './modules/popupDocuments';
 
 
 headerInterective();
@@ -20,3 +22,5 @@ formulaItemPopup();
 accordionQuations();
 repairTypes();
 slider('#reviews', '.reviews-slider', '#reviews-arrow_right', '#reviews-arrow_left');
+documents();
+popupDocuments();
