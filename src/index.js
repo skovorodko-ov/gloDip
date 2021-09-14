@@ -11,6 +11,7 @@ import repairTypes from './modules/repairTypes';
 import slider from './modules/slider';
 import documents from './modules/documents';
 import popupDocuments from './modules/popupDocuments';
+import sendForm from './modules/sendForm';
 
 
 headerInterective();
@@ -24,3 +25,4 @@ repairTypes();
 slider('#reviews', '.reviews-slider', '#reviews-arrow_right', '#reviews-arrow_left');
 documents();
 popupDocuments();
+sendForm();
