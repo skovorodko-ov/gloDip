@@ -13,6 +13,7 @@ import documents from './modules/documents';
 import popupDocuments from './modules/popupDocuments';
 import sendForm from './modules/sendForm';
 import popupConsultation from './modules/popupConsultation';
+import popapRepair from './modules/popapRepair';
 
 
 headerInterective();
@@ -28,3 +29,5 @@ documents();
 popupDocuments();
 sendForm();
 popupConsultation();
+popapRepair();
+slider('.popup-repair-types', '.nav-list-popup-repair', '#nav-arrow-popup-repair_right', '#nav-arrow-popup-repair_left');
