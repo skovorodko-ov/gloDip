@@ -12,6 +12,7 @@ import slider from './modules/slider';
 import documents from './modules/documents';
 import popupDocuments from './modules/popupDocuments';
 import sendForm from './modules/sendForm';
+import popupConsultation from './modules/popupConsultation';
 
 
 headerInterective();
@@ -26,3 +27,4 @@ slider('#reviews', '.reviews-slider', '#reviews-arrow_right', '#reviews-arrow_le
 documents();
 popupDocuments();
 sendForm();
+popupConsultation();
