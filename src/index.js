@@ -5,7 +5,6 @@ import lowScroll from './modules/lowScroll';
 import popupLinkList from './modules/popupLinkList';
 import maskPhone from './modules/maskPhone';
 import popupPrivacy from './modules/popupPrivacy';
-import formulaItemPopup from './modules/formulaItemPopup';
 import accordionQuations from './modules/accordionQuations';
 import repairTypes from './modules/repairTypes';
 import slider from './modules/slider';
@@ -14,6 +13,7 @@ import popupDocuments from './modules/popupDocuments';
 import sendForm from './modules/sendForm';
 import popupConsultation from './modules/popupConsultation';
 import popapRepair from './modules/popapRepair';
+import formulaPopup from './modules/formulaPopup';
 
 
 headerInterective();
@@ -21,7 +21,6 @@ lowScroll();
 popupLinkList();
 maskPhone();
 popupPrivacy();
-formulaItemPopup();
 accordionQuations();
 repairTypes();
 slider('#reviews', '.reviews-slider', '#reviews-arrow_right', '#reviews-arrow_left');
@@ -31,3 +30,4 @@ sendForm();
 popupConsultation();
 popapRepair();
 slider('.popup-repair-types', '.nav-list-popup-repair', '#nav-arrow-popup-repair_right', '#nav-arrow-popup-repair_left');
+formulaPopup();

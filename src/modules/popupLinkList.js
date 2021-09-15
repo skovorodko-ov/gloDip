@@ -10,7 +10,7 @@ const popupLinkList = () => {
           event.preventDefault();
           popupRepairTypes.style.visibility = 'visible';
           popupDialogMenu.removeAttribute('style');
-          popupDialogMenu.style.display = 'none';
+          popupDialogMenu.style.visibility = 'hidden';
         });
     });
     popupRepairTypes.addEventListener('click', (event) => {
