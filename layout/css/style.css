@@ -9106,3 +9106,10 @@ strong {
 .slider-dots {
   display: none;
 }
+#portfolio-arrow-mobile_right,
+#portfolio-arrow-mobile_left {
+  z-index: 11;
+}
+.sliderWrap {
+  display: flex;
+}

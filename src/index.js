@@ -14,6 +14,7 @@ import sendForm from './modules/sendForm';
 import popupConsultation from './modules/popupConsultation';
 import popapRepair from './modules/popapRepair';
 import formulaPopup from './modules/formulaPopup';
+import portfolioBlockSlider from './modules/sliderPortfolio';
 
 
 headerInterective();
@@ -31,3 +32,6 @@ popupConsultation();
 popapRepair();
 slider('.popup-repair-types', '.nav-list-popup-repair', '#nav-arrow-popup-repair_right', '#nav-arrow-popup-repair_left');
 formulaPopup();
+slider('#portfolio', '.portfolio-slider-mobile', '#portfolio-arrow-mobile_right',
+'#portfolio-arrow-mobile_left', '.slider-counter-content__current', '.slider-counter-content__total');
+portfolioBlockSlider();
