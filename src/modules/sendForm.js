@@ -56,7 +56,7 @@ const sendForm = () => {
       };  
 
       const error = (e) => {
-        console.worn(e);
+        console.worm(e);
       };
 
       const clearFormInputs = () => {

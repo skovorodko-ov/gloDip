@@ -22,7 +22,7 @@ const lowScroll = () => {
                 behavior: "smooth"
             });
             popupDialogMenu.removeAttribute('style');
-            popupDialogMenu.style.display = 'none';
+            popupDialogMenu.style.visibility = 'hidden';
         }
     };
 
