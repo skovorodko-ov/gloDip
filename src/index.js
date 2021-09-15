@@ -17,21 +17,23 @@ import formulaPopup from './modules/formulaPopup';
 import portfolioBlockSlider from './modules/sliderPortfolio';
 
 
-headerInterective();
-lowScroll();
-popupLinkList();
-maskPhone();
-popupPrivacy();
-accordionQuations();
-repairTypes();
-slider('#reviews', '.reviews-slider', '#reviews-arrow_right', '#reviews-arrow_left');
-documents();
-popupDocuments();
-sendForm();
-popupConsultation();
-popapRepair();
-slider('.popup-repair-types', '.nav-list-popup-repair', '#nav-arrow-popup-repair_right', '#nav-arrow-popup-repair_left');
-formulaPopup();
-slider('#portfolio', '.portfolio-slider-mobile', '#portfolio-arrow-mobile_right',
-'#portfolio-arrow-mobile_left', '.slider-counter-content__current', '.slider-counter-content__total');
-portfolioBlockSlider();
+  headerInterective();
+  lowScroll();
+  popupLinkList();
+  maskPhone();
+  popupPrivacy();
+  accordionQuations();
+  repairTypes();
+  slider('#reviews', '.reviews-slider', '#reviews-arrow_right', '#reviews-arrow_left');
+  documents();
+  popupDocuments();
+  sendForm();
+  popupConsultation();
+  popapRepair();
+  slider('.popup-repair-types', '.nav-list-popup-repair', '#nav-arrow-popup-repair_right', '#nav-arrow-popup-repair_left');
+  formulaPopup();
+  slider('#portfolio', '.portfolio-slider-mobile', '#portfolio-arrow-mobile_right',
+  '#portfolio-arrow-mobile_left', '.slider-counter-content__current', '.slider-counter-content__total');
+  portfolioBlockSlider();
+
+
