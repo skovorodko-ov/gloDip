@@ -5,8 +5,14 @@ const accordionQuations = () => {
     titleElements = accordion.querySelectorAll('.title_block');
 
   titleElements.forEach(elem => {
-    elem.addEventListener('click', () => {
-      elem.classList.toggle('msg-active');
+    elem.addEventListener('click', (event) => {
+      titleElements.forEach(elem => {
+        if (elem === event.target) {
+          elem.classList.toggle('msg-active');
+        } else {
+          elem.classList.remove('msg-active');
+        }
+      });
     });
   });
 
