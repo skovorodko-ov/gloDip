@@ -28,7 +28,7 @@ const repairTypes = () => {
     if (target === navArrowRepairRightBase || target.parentNode === navArrowRepairRightBase ||
       target.parentNode.parentNode === navArrowRepairRightBase) {
         offsetLeft += step;
-        if (offsetLeft > 720) {
+        if (offsetLeft > 1024) {
           offsetLeft = 0;
         }
         navListRepair.style.transform = `translateX(-${offsetLeft}px)`;
@@ -37,7 +37,7 @@ const repairTypes = () => {
       target.parentNode.parentNode === navArrowRepairLeftBase) {
         offsetLeft -= step;
         if (offsetLeft < 0) {
-          offsetLeft = 720;
+          offsetLeft = 1024;
         }
         navListRepair.style.transform = `translateX(-${offsetLeft}px)`;
     }
