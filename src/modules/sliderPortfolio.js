@@ -87,7 +87,7 @@ const portfolioBlockSlider = () => {
 
             if (target === arrowRight || target.parentNode === arrowRight||
                 target.parentNode.parentNode === arrowRight) {
-                    if (wrapWeidth > (wrapContainerWeidth + step)) {
+                    if ((wrapWeidth - 100) > (wrapContainerWeidth + step)) {
                         step += 352;
                         sliderWrap.style.transform = `translateX(-${step}px)`;
                         arrowLeft.style.display = 'flex';
@@ -101,7 +101,7 @@ const portfolioBlockSlider = () => {
                       arrowRight.style.display = 'flex';
                   }
                 }
-          if (wrapWeidth < (wrapContainerWeidth + step)) {
+          if ((wrapWeidth - 100) < (wrapContainerWeidth + step)) {
             arrowRight.style.display = 'none';
           }
           if (step === 0) {
