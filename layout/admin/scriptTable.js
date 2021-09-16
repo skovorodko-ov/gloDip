@@ -67,6 +67,26 @@ const createSelect = (data) => {
   });
 };
 
+const filterSelect = () => {
+  typeItem.addEventListener('change', (event) => {
+    let target = event.target;
+    const itemsTable = tbody.querySelectorAll('.table__row');
+    itemsTable.forEach(elem => {
+      elem.style.display = 'table-row';
+    });
+    itemsTable.forEach(elem => {
+      if (target.value !== elem.children[1].textContent) {
+        elem.style.display = 'none';
+      }
+      if (target.value === 'Все услуги') {
+        itemsTable.forEach(elem => {
+          elem.style.display = 'table-row';
+        });
+      }
+    });
+  });
+};
+
 getData().then(response => {
   if (response.status !== 200) {
     throw new Error('server not status 200!');
@@ -75,3 +95,5 @@ getData().then(response => {
   }
 })
 .then(parseData).then(tableDefault).then(createSelect).catch(error => console.warn(error));
+
+filterSelect();
