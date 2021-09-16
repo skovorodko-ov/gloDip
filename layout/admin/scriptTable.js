@@ -1,7 +1,10 @@
 'use strict';
 
-const tbody = document.getElementById('tbody');
-const typeItem = document.getElementById('typeItem');
+const tbody = document.getElementById('tbody'),
+  typeItem = document.getElementById('typeItem'),
+  modal = document.getElementById('modal'),
+  btnAddItem = document.querySelector('.btn-addItem'),
+  inputsModal = modal.querySelectorAll('input');
 
 const createdElem = (id, type, name, units, cost) => {
   const tr = document.createElement('tr');
@@ -87,6 +90,24 @@ const filterSelect = () => {
   });
 };
 
+const popup = () => {
+  btnAddItem.addEventListener('click', () => {
+    modal.style.display = 'flex';
+  });
+
+  modal.addEventListener('click', (event) => {
+    let target = event.target;
+    if (target.classList.contains('modal__overlay') || 
+    target.classList.contains('button__close') || target.classList.contains('svg_ui') ||
+    target.classList.contains('icon__close') || target.parentNode.classList.contains('icon__close')) {
+      inputsModal.forEach(item => {
+        item.value = '';
+      });
+      modal.style.display = 'none';
+    }
+  });
+};
+
 getData().then(response => {
   if (response.status !== 200) {
     throw new Error('server not status 200!');
@@ -97,3 +118,4 @@ getData().then(response => {
 .then(parseData).then(tableDefault).then(createSelect).catch(error => console.warn(error));
 
 filterSelect();
+popup();
