@@ -4,7 +4,8 @@ const tbody = document.getElementById('tbody'),
   typeItem = document.getElementById('typeItem'),
   modal = document.getElementById('modal'),
   btnAddItem = document.querySelector('.btn-addItem'),
-  inputsModal = modal.querySelectorAll('input');
+  inputsModal = modal.querySelectorAll('input'),
+  form = modal.querySelector('form');
 
 const createdElem = (id, type, name, units, cost) => {
   const tr = document.createElement('tr');
@@ -32,14 +33,13 @@ const createdElem = (id, type, name, units, cost) => {
   tbody.append(tr);
 };
 
-const getData = (typeResponse = 'GET', objBody = {}) => {
-  let obj = {};
-  if (objBody) {
-    obj.body = objBody;
-  }
+const getData = (typeResponse = 'GET') => {
+  
   return fetch('http://localhost:3000/api/items', {
-    type: typeResponse,
-    objBody
+    method: typeResponse,
+    headers: {
+      'Content-Type': 'aplication/json',
+    },
   });
 };
 
@@ -99,12 +99,75 @@ const popup = () => {
     let target = event.target;
     if (target.classList.contains('modal__overlay') || 
     target.classList.contains('button__close') || target.classList.contains('svg_ui') ||
-    target.classList.contains('icon__close') || target.parentNode.classList.contains('icon__close')) {
+    target.classList.contains('icon__close') || target.parentNode.classList.contains('icon__close') ||
+    target.parentNode.classList.contains('cancel-button')) {
       inputsModal.forEach(item => {
         item.value = '';
+        item.removeAttribute('style');
       });
       modal.style.display = 'none';
     }
+  });
+};
+
+const addService = () => {
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formsInput = form.querySelectorAll('input');
+
+    formsInput.forEach(elem => {
+      if (!elem.value) {
+        elem.style.border = 'solid 2px red';
+        return;
+      }
+    });
+
+    console.dir(formsInput);
+
+    let objBody = {};
+    formsInput.forEach(elem => {
+      objBody[elem.id] = elem.value;
+    });
+
+
+  const postService = () => {  
+    return fetch('http://localhost:3000/api/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'aplication/json',
+      },
+      body: JSON.stringify(objBody)
+    });
+  };
+
+  const success = (response) => {
+    if (response.ok) {
+      modal.style.display = 'none';
+      inputsModal.forEach(item => {
+        item.value = '';
+      });
+      getData().then(response => {
+        if (response.status !== 200) {
+          throw new Error('server not status 200!');
+        } else {
+          return response.text();
+        }
+      })
+      .then(parseData).then(tableDefault).then(createSelect).catch(error => console.warn(error));
+    } else {
+      throw new Error('status network not 200');
+    }
+  };
+
+  (async () => {
+    try {
+      const response = await postService();
+      success(response);
+    } catch(e) {
+      console.warn(e);
+    }
+  })();
   });
 };
 
@@ -119,3 +182,4 @@ getData().then(response => {
 
 filterSelect();
 popup();
+addService();
