@@ -5,7 +5,8 @@ const tbody = document.getElementById('tbody'),
   modal = document.getElementById('modal'),
   btnAddItem = document.querySelector('.btn-addItem'),
   inputsModal = modal.querySelectorAll('input'),
-  form = modal.querySelector('form');
+  form = modal.querySelector('form'),
+  modalHeader = modal.querySelector('.modal__header');
 
 const createdElem = (id, type, name, units, cost) => {
   const tr = document.createElement('tr');
@@ -33,9 +34,9 @@ const createdElem = (id, type, name, units, cost) => {
   tbody.append(tr);
 };
 
-const getData = (typeResponse = 'GET') => {
+const getData = (typeResponse = 'GET', id = '') => {
   
-  return fetch('http://localhost:3000/api/items', {
+  return fetch(`http://localhost:3000/api/items${id}`, {
     method: typeResponse,
     headers: {
       'Content-Type': 'aplication/json',
@@ -105,6 +106,7 @@ const popup = () => {
         item.value = '';
         item.removeAttribute('style');
       });
+      modalHeader.textContent = 'Добавление новой услуги';
       modal.style.display = 'none';
     }
   });
@@ -171,6 +173,43 @@ const addService = () => {
   });
 };
 
+
+const changeService = () => {
+  tbody.addEventListener('click', (event) => {
+    let target = event.target;
+
+    if (target.closest('.action-change')) {
+      modal.style.display = 'flex';
+
+      modalHeader.textContent = 'Редактировать услугу';
+
+      let serviceId = '/' + target.closest('.table__row').children[0].textContent;
+
+      const getInfoAboutService = (serviseData) => {
+
+        inputsModal.forEach(elem => {
+
+          for (let key in serviseData) {
+
+            if (key === elem.id) {
+              elem.value = serviseData[key];
+            }
+          }
+        });
+      };
+
+      getData('GET', serviceId)
+      .then(response => {
+        if (response.status !== 200) {
+          throw new Error('server not status 200!');
+        } else {
+          return response.text();
+        }
+      }).then(parseData).then(getInfoAboutService).catch(error => console.warn(error));
+    }
+  });
+};
+
 getData().then(response => {
   if (response.status !== 200) {
     throw new Error('server not status 200!');
@@ -178,7 +217,7 @@ getData().then(response => {
     return response.text();
   }
 })
-.then(parseData).then(tableDefault).then(createSelect).catch(error => console.warn(error));
+.then(parseData).then(tableDefault).then(createSelect).then(changeService).catch(error => console.warn(error));
 
 filterSelect();
 popup();
