@@ -8,6 +8,8 @@ const tbody = document.getElementById('tbody'),
   form = modal.querySelector('form'),
   modalHeader = modal.querySelector('.modal__header');
 
+let serviceId;
+
 const createdElem = (id, type, name, units, cost) => {
   const tr = document.createElement('tr');
   tr.classList.add('table__row');
@@ -63,6 +65,11 @@ const createSelect = (data) => {
   });
   arrType = new Set(arrType);
 
+  const option = document.createElement('option');
+    option.setAttribute('value', 'Все услуги');
+    option.textContent = 'Все услуги';
+    typeItem.append(option);
+
   arrType.forEach(item => {
     const option = document.createElement('option');
     option.setAttribute('value', item);
@@ -113,6 +120,7 @@ const popup = () => {
 };
 
 const addService = () => {
+  
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -125,14 +133,11 @@ const addService = () => {
       }
     });
 
-    console.dir(formsInput);
-
     let objBody = {};
     formsInput.forEach(elem => {
       objBody[elem.id] = elem.value;
     });
-
-
+  
   const postService = () => {  
     return fetch('http://localhost:3000/api/items', {
       method: 'POST',
@@ -143,12 +148,31 @@ const addService = () => {
     });
   };
 
+  const changeService = () => {
+    return fetch(`http://localhost:3000/api/items${serviceId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'aplication/json',
+      },
+      body: JSON.stringify(objBody)
+    });
+
+  }
+
   const success = (response) => {
     if (response.ok) {
       modal.style.display = 'none';
       inputsModal.forEach(item => {
         item.value = '';
       });
+
+  const cleanTable = (response) => {
+    tbody.innerHTML = '';
+    typeItem.innerHTML = '';
+    return response;
+  };
+
+
       getData().then(response => {
         if (response.status !== 200) {
           throw new Error('server not status 200!');
@@ -156,7 +180,7 @@ const addService = () => {
           return response.text();
         }
       })
-      .then(parseData).then(tableDefault).then(createSelect).catch(error => console.warn(error));
+      .then(parseData).then(cleanTable).then(tableDefault).then(createSelect).catch(error => console.warn(error));
     } else {
       throw new Error('status network not 200');
     }
@@ -164,8 +188,14 @@ const addService = () => {
 
   (async () => {
     try {
+      if (serviceId) {
+        const response = await changeService();
+        success(response);
+        serviceId = 0;
+      } else {
       const response = await postService();
-      success(response);
+        success(response);
+      }
     } catch(e) {
       console.warn(e);
     }
@@ -176,6 +206,7 @@ const addService = () => {
 
 const changeService = () => {
   tbody.addEventListener('click', (event) => {
+
     let target = event.target;
 
     if (target.closest('.action-change')) {
@@ -183,14 +214,11 @@ const changeService = () => {
 
       modalHeader.textContent = 'Редактировать услугу';
 
-      let serviceId = '/' + target.closest('.table__row').children[0].textContent;
+      serviceId = '/' + target.closest('.table__row').children[0].textContent;
 
       const getInfoAboutService = (serviseData) => {
-
         inputsModal.forEach(elem => {
-
           for (let key in serviseData) {
-
             if (key === elem.id) {
               elem.value = serviseData[key];
             }
@@ -206,7 +234,9 @@ const changeService = () => {
           return response.text();
         }
       }).then(parseData).then(getInfoAboutService).catch(error => console.warn(error));
+
     }
+
   });
 };
 
