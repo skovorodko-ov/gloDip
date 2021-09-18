@@ -6,7 +6,8 @@ const tbody = document.getElementById('tbody'),
   btnAddItem = document.querySelector('.btn-addItem'),
   inputsModal = modal.querySelectorAll('input'),
   form = modal.querySelector('form'),
-  modalHeader = modal.querySelector('.modal__header');
+  modalHeader = modal.querySelector('.modal__header'),
+  btnDeleteItem = document.querySelector('.action-remove');
 
 let serviceId;
 
@@ -119,6 +120,33 @@ const popup = () => {
   });
 };
 
+const success = (response) => {
+    if (response.ok) {
+      modal.style.display = 'none';
+      inputsModal.forEach(item => {
+        item.value = '';
+      });
+
+  const cleanTable = (response) => {
+    tbody.innerHTML = '';
+    typeItem.innerHTML = '';
+    return response;
+  };
+
+
+      getData().then(response => {
+        if (response.status !== 200) {
+          throw new Error('server not status 200!');
+        } else {
+          return response.text();
+        }
+      })
+      .then(parseData).then(cleanTable).then(tableDefault).then(createSelect).catch(error => console.warn(error));
+    } else {
+      throw new Error('status network not 200');
+    }
+};
+
 const addService = () => {
   
   form.addEventListener('submit', (event) => {
@@ -157,34 +185,8 @@ const addService = () => {
       body: JSON.stringify(objBody)
     });
 
-  }
-
-  const success = (response) => {
-    if (response.ok) {
-      modal.style.display = 'none';
-      inputsModal.forEach(item => {
-        item.value = '';
-      });
-
-  const cleanTable = (response) => {
-    tbody.innerHTML = '';
-    typeItem.innerHTML = '';
-    return response;
   };
 
-
-      getData().then(response => {
-        if (response.status !== 200) {
-          throw new Error('server not status 200!');
-        } else {
-          return response.text();
-        }
-      })
-      .then(parseData).then(cleanTable).then(tableDefault).then(createSelect).catch(error => console.warn(error));
-    } else {
-      throw new Error('status network not 200');
-    }
-  };
 
   (async () => {
     try {
@@ -237,8 +239,23 @@ const changeService = () => {
 
     }
 
+    if (target.closest('.action-remove')) {
+      serviceId = '/' + target.closest('.table__row').children[0].textContent;
+
+        (async () => {
+          try {
+            const response = await getData('DELETE', serviceId);
+            success(response);
+            serviceId = 0;
+          } catch(e) {
+            console.warn(e);
+          }
+        })();
+    }
+
   });
 };
+
 
 getData().then(response => {
   if (response.status !== 200) {
