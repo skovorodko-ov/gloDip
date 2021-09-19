@@ -2,7 +2,8 @@
 
 const sendForm = () => {
   const forms = document.querySelectorAll('form'),
-    popupThanks = document.querySelector('.popup-thank');
+    popupThanks = document.querySelector('.popup-thank'),
+    formInputName = document.querySelectorAll('.feedback-block__form-input_name');
 
   popupThanks.addEventListener('click', (event) => {
     let target = event.target;
@@ -22,6 +23,16 @@ const sendForm = () => {
     });
   };
 
+  const validationName = () => {
+    formInputName.forEach(elem => {
+      elem.addEventListener('input', (event) => {
+      let target = event.target;
+      target.value = target.value.replace(/\w/g, '');
+    });
+    });
+  };
+
+  validationName();
 
   const sendingForm = (id) => {
     const form = document.getElementById(id),
@@ -29,6 +40,10 @@ const sendForm = () => {
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
+
+      formInputName.forEach(elem => {
+        elem.value = elem.value.trim();
+      });
 
       if (!checkbox.checked) {
         return;
